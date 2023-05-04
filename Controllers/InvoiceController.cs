@@ -10,6 +10,7 @@ using API.ViewModel;
 using AutoMapper;
 using DinkToPdf;
 using DinkToPdf.Contracts;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +26,9 @@ using System.Web;
 namespace API.Controllers
 {
 
-    [ApiController]
-    [Route("[controller]")]
+    //[ApiController]
+    //[Route("[controller]")]
+    [EnableCors("AllowOrigin")]   
     public class InvoiceController : BaseApiController
     {
         private readonly StoreContext _context;
@@ -220,7 +222,7 @@ namespace API.Controllers
             //return $"{this.Prefix}{this.GetNextValue():000000}";
         }
 
-        [HttpGet]
+        [HttpGet()]
         public async Task<ActionResult<IReadOnlyList<InvoiceDto>>> GetInvoiceList()
         {
             var sales = await _context.SalesHeader.Where(x => x.IsDeleted == 0)
