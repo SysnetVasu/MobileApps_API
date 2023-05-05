@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Cors;
 
 namespace API.Controllers
 {
-    [EnableCors("AllowOrigin")]
+  //  [EnableCors("AllowOrigin")]
    // @CrossOrigin(origins = "http://localhost:8081")
     public class CartController : BaseApiController
     {

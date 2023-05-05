@@ -28,7 +28,7 @@ namespace API.Controllers
 
     //[ApiController]
     //[Route("[controller]")]
-    [EnableCors("AllowOrigin")]   
+    //[EnableCors("AllowOrigin")]   
     public class InvoiceController : BaseApiController
     {
         private readonly StoreContext _context;

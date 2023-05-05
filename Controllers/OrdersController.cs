@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [EnableCors("AllowOrigin")]
+    //[EnableCors("AllowOrigin")]
     public class OrdersController : BaseApiController
     {
         private readonly StoreContext _context;

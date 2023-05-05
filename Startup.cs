@@ -56,19 +56,19 @@ namespace API
                 return ConnectionMultiplexer.Connect(configuration);
             });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowOrigin",
-                    builder =>
-                    {
-                        builder.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .SetIsOriginAllowed(origin => true)
-                        .AllowAnyMethod()//.SetIsOriginAllowed((data) => true)
-                        .AllowCredentials()
-                        .WithOrigins("http://localhost", "http://localhost:8100", "http://ammanhq.dyndns.biz:5352", "http://ammanhq.dyndns.biz", "https://localhost:4200", "http://localhost:8100");
-                    });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowOrigin",
+            //        builder =>
+            //        {
+            //            builder.AllowAnyOrigin()
+            //            .AllowAnyHeader()
+            //            .SetIsOriginAllowed(origin => true)
+            //            .AllowAnyMethod()//.SetIsOriginAllowed((data) => true)
+            //            .AllowCredentials()
+            //            .WithOrigins("http://localhost", "http://localhost:8100", "http://ammanhq.dyndns.biz:5352", "http://ammanhq.dyndns.biz", "https://localhost:4200", "http://localhost:8100");
+            //        });
+            //});
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
            builder =>
@@ -80,6 +80,14 @@ namespace API
                       .WithOrigins("http://localhost", "http://ammanhq.dyndns.biz:5352", "http://ammanhq.dyndns.biz", "http://localhost:8100", "https://localhost:4200");
            }));
 
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder.AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .SetIsOriginAllowed((host) => true)
+                       .AllowCredentials();
+            }));
 
             services.AddSwaggerGen(c =>
             {
@@ -111,20 +119,23 @@ namespace API
                     Path.Combine(Directory.GetCurrentDirectory(), "Content")
                 ),
                 RequestPath = new PathString("/content")
-            });
-            app.UseCors("AllowOrigin");
+            });            
+
+           // app.UseCors("AllowOrigin");
             
-            app.UseCors("corsAllowAllPolicy");
-            //app.UseCors(x => x.AllowAnyHeader()
-            //  .AllowAnyMethod()
-            //  .AllowCredentials()
-            //  .WithOrigins("http://localhost", "http://localhost:8100", "http://ammanhq.dyndns.biz:5352"));
+           // app.UseCors("corsAllowAllPolicy");
+           // //app.UseCors(x => x.AllowAnyHeader()
+           // //  .AllowAnyMethod()
+           // //  .AllowCredentials()
+           // //  .WithOrigins("http://localhost", "http://localhost:8100", "http://ammanhq.dyndns.biz:5352"));
 
-            //  app.UseAuthorization();
+           // //  app.UseAuthorization();
 
-            app.UseCors(
-           options => options.WithOrigins("http://localhost:8100", "http://ammanhq.dyndns.biz:5352").AllowAnyMethod()
-       );
+           // app.UseCors(
+           //options => options.WithOrigins("http://localhost:8100", "http://ammanhq.dyndns.biz:5352").AllowAnyMethod()
+
+            //);
+            app.UseCors("CorsPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

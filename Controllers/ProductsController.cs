@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [EnableCors("AllowOrigin")]
+   // [EnableCors("AllowOrigin")]
     public class ProductsController : BaseApiController
     {
         private readonly StoreContext _context;
